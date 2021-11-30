@@ -3,6 +3,8 @@
 
 # Advent of Code 2021
 
+[![R-CMD-check](https://github.com/Selbosh/adventofcode2021/actions/workflows/r.yml/badge.svg)](https://github.com/Selbosh/adventofcode2021/actions)
+
 *By [David Selby](https://selbydavid.com)*
 
 This repository contains some of my attempts to solve programming

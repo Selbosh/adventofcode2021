@@ -15,6 +15,8 @@ knitr::opts_chunk$set(
 
 # Advent of Code 2021
 
+[![R-CMD-check](https://github.com/Selbosh/adventofcode2021/actions/workflows/r.yml/badge.svg)](https://github.com/Selbosh/adventofcode2021/actions)
+
 _By [David Selby](https://selbydavid.com)_
 
 This repository contains some of my attempts to solve programming puzzles in the [Advent of Code 2021](https://adventofcode.com/2021).
