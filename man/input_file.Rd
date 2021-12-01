@@ -10,15 +10,15 @@ input_file(day)
 \item{day}{integer between 1 and 25}
 }
 \value{
-File path, e.g. \code{"/inst/input01.txt"}.
-If that file does not exists, or if the argument \code{day} is not between 1 and
+File path, e.g. \code{"path/to/input01.txt"}.
+If that file does not exist, or if the argument \code{day} is not between 1 and
 25, an error will be thrown.
 }
 \description{
 Puzzle inputs are typically saved in the form of text files with the name
 \code{input01.txt}, \code{input02.txt}, ... etc. in the package's \verb{inst/} folder.
-This helper function makes it easy to read in the data using \code{readLines},
-\code{scan} or \code{read.csv} as appropriate.
+This helper function makes it easy to read in the data using the \code{readLines},
+\code{scan} or \code{read.csv} functions, as appropriate.
 }
 \details{
 Sometimes inputs are simple strings or numbers and passed directly to

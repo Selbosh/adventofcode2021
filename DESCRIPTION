@@ -1,17 +1,21 @@
 Package: adventofcode2021
-Title: Advent of Code 2021 solutions in R
-Version: 2021.12.0
-Authors@R: 
+Title: Advent of Code 2021 Solutions in R
+Version: 0.0.1
+Authors@R: c(
     person("David Antony", "Selby", , "david.selby@manchester.ac.uk",
            role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0001-8026-5663"))
-Description: Solutions to Advent of Code 2021 programming puzzles, written as an R package <https://adventofcode.com/2021>.
+           comment = c(ORCID = "0000-0001-8026-5663")),
+    person("Eric", "Wastl",
+           role = c("ctb"),
+           comment = "Created puzzles and descriptions in the documentation.")
+    )
+Description: Solutions to Advent of Code 2021 programming puzzles, written as an R package.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-BugReports: https://github.com/Selbosh/adventofcode2021
-Suggests: 
+BugReports: https://github.com/Selbosh/adventofcode2021/issues
+Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

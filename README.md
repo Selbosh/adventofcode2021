@@ -40,4 +40,11 @@ folder and to `source()` when required.
 
 ``` r
 library(adventofcode2021)
+get_solution(1)
+#> [1] 1266
+#> [1] 1217
 ```
+
+## Attribution
+
+Puzzles and their descriptions are by Eric Wastl.
