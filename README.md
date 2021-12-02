@@ -43,6 +43,9 @@ library(adventofcode2021)
 get_solution(1)
 #> [1] 1266
 #> [1] 1217
+get_solution(2)
+#> [1] 1746616
+#> [1] 1741971043
 ```
 
 ## Attribution

@@ -45,6 +45,7 @@ To print the numerical outputs, we can write vignettes, add our working to the G
 ```{r day1, message = FALSE}
 library(adventofcode2021)
 get_solution(1)
+get_solution(2)
 ```
 
 ## Attribution
