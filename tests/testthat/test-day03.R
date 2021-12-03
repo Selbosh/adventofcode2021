@@ -13,5 +13,8 @@ test_that("Day 3", {
 01010'), widths = rep(1, 5))
   expect_equal(binary_to_int(c(0, 1, 0, 0, 1)), 9)
   expect_equal(binary_to_int(c(1, 0, 1, 1, 0)), 22)
-  expect_equal(binary_diagnostic(example), 198)
+  expect_equal(power_consumption(example), 198)
+
+
+  expect_equal(life_support(example), 230)
 })
