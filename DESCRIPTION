@@ -1,6 +1,6 @@
 Package: adventofcode2021
 Title: Advent of Code 2021 Solutions in R
-Version: 0.0.3
+Version: 0.0.4
 Authors@R: c(
     person("David Antony", "Selby", , "david.selby@manchester.ac.uk",
            role = c("aut", "cre"),
@@ -19,5 +19,3 @@ BugReports: https://github.com/Selbosh/adventofcode2021/issues
 Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-Imports: 
-    dplyr

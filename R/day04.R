@@ -75,11 +75,19 @@ NULL
 #' @rdname day04
 #' @param file name of file or connection containing the input data
 #' @return `read_draws`: A list containing `draws`, a numeric vector, and `cards`, a matrix
+#' @importFrom utils read.table
 #' @export
 read_draws <- function(file) {
   draws <- scan(file, sep = ',', nlines = 1, quiet = TRUE)
   cards <- read.table(file, skip = 1)
   list(draws = draws, cards = cards)
+}
+
+score_card <- function(mat, draw) {
+  marked <- is.na(mat)
+  if (all(c(rowMeans(marked), colMeans(marked)) != 1))
+    return(0)
+  sum(mat, na.rm = TRUE) * draw
 }
 
 #' @rdname day04
@@ -89,50 +97,35 @@ read_draws <- function(file) {
 #' @export
 play_bingo <- function(draws, cards) {
   size <- ncol(cards)
-  ids <- 1 + (1:nrow(cards) - 1) %/% size
-
-  count_marked <- function(mat) {
-    marked <- is.na(mat)
-    size %in% c(rowSums(marked), colSums(marked))
-  }
+  ncards <- nrow(cards) / size
+  ids <- rep(1:ncards, each = size)
 
   for (d in draws) {
     cards[cards == d] <- NA
-    won <- sapply(split(cards, ids), count_marked)
-    if (any(won))
-      break
+    score <- sapply(split(cards, ids), score_card, draw = d)
+    if (any(score > 0))
+      return(score[score > 0])
   }
 
-  winner <- cards[ids == which(won), ]
-  sum(winner, na.rm = TRUE) * d
+  stop('No winner found')
 }
 
 #' @rdname day04
-#' @import dplyr
 #' @export
 play_bingo2 <- function(draws, cards) {
   size <- ncol(cards)
-  cards$id <- 1 + (1:nrow(cards) - 1) %/% size
-
-  count_marked <- function(mat, ...) {
-    marked <- is.na(mat)
-    data.frame(win = size %in% c(rowSums(marked), colSums(marked)))
-  }
 
   for (d in draws) {
-    cards <- cards %>%
-      mutate(across(-id, ~ ifelse(.x == d, NA, .x)))
-
-    winner <- cards %>%
-      group_by(id) %>%
-      group_modify(count_marked)
-
-    if (any(winner$win)) {
-      if (nrow(cards) == size) {
-        return(d * sum(cards[, 1:size], na.rm = TRUE))
-      }
-      cards <- anti_join(cards, winner %>% filter(win), by = 'id')
+    ncards <- nrow(cards) / size
+    ids <- rep(1:ncards, each = size)
+    cards[cards == d] <- NA
+    score <- sapply(split(cards, ids), score_card, draw = d)
+    if (any(score > 0)) {
+      if (ncards == 1)
+        return(score[score > 0])
+      cards <- cards[ids %in% which(score == 0), ]
     }
   }
-  stop('Not everyone won by the end of all draws')
+
+  stop('No winner found')
 }
