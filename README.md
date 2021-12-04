@@ -49,6 +49,9 @@ get_solution(2)
 get_solution(3)
 #> [1] 4191876
 #> [1] 3414905
+get_solution(4)
+#> [1] 64084
+#> [1] 12833
 ```
 
 ## Attribution

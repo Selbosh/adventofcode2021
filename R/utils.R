@@ -36,4 +36,23 @@ get_solution <- function(day) {
   source(filename, print.eval = TRUE)
 }
 
-
+#' Read a fixed-width matrix with no delimiter or header
+#'
+#' Equivalent to `read.fwf` but faster and width does not need to be specified.
+#'
+#' @examples
+#' read.matrix(input_file(3))
+#'
+#' @param file A text file or connection
+#' @param type Storage mode, defaults to numeric
+#'
+#' @return A matrix
+#'
+#' @export
+read.matrix <- function(file, type = 'numeric') {
+  type <- match.arg(type,
+                    c('numeric', 'logical', 'integer', 'character'))
+  mat <- do.call(rbind, strsplit(readLines(file), ''))
+  storage.mode(mat) <- type
+  mat
+}
