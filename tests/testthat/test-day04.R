@@ -20,7 +20,7 @@ test_that("Day 4", {
  2  0 12  3  7'
   input <- read_draws(textConnection(example))
   score <- do.call(play_bingo, input)
-  expect_equal(score, 4512)
+  expect_equal(score, 4512, ignore_attr = TRUE)
   score2 <- do.call(play_bingo2, input)
-  expect_equal(score2, 1924)
+  expect_equal(score2, 1924, ignore_attr = TRUE)
 })
