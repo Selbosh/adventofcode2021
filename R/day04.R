@@ -102,7 +102,7 @@ play_bingo <- function(draws, cards) {
 
   for (d in draws) {
     cards[cards == d] <- NA
-    score <- sapply(split(cards, ids), score_card, draw = d)
+    score <- unname(sapply(split(cards, ids), score_card, draw = d))
     if (any(score > 0))
       return(score[score > 0])
   }
@@ -119,7 +119,7 @@ play_bingo2 <- function(draws, cards) {
     ncards <- nrow(cards) / size
     ids <- rep(1:ncards, each = size)
     cards[cards == d] <- NA
-    score <- sapply(split(cards, ids), score_card, draw = d)
+    score <- unname(sapply(split(cards, ids), score_card, draw = d))
     if (any(score > 0)) {
       if (ncards == 1)
         return(score[score > 0])
