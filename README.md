@@ -55,6 +55,9 @@ get_solution(4)
 get_solution(5)
 #> [1] 5167
 #> [1] 17604
+get_solution(6)
+#> [1] 391888
+#> [1] "1754597645339"
 ```
 
 ## Attribution
