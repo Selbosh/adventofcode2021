@@ -50,6 +50,7 @@ get_solution(3)
 get_solution(4)
 get_solution(5)
 get_solution(6)
+get_solution(7)
 ```
 
 ## Attribution
