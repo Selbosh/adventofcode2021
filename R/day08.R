@@ -147,8 +147,12 @@ output_value <- function(row) {
   # bipartite graph from signals to possible digits
   # number -> no. segments
   # c(8 = 7, (a, b, c, d, e, f & g)
-  #   4 = 4, (b, c, d & f)
-  #   7 = 3, (a, c & f)
-  #   1 = 2) (c & f)
+  #   4 = 4,    (b, c, d     f)
+  #   7 = 3, (a,    c        f)
+  #   1 = 2)       (c        f)
+  # Candidates for each segment in the display.
+  # Successively reduce these to eliminate possibilities.
+  segments <- replicate(7, letters[1:7], simplify = FALSE)
+  #
   NULL
 }
