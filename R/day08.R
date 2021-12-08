@@ -132,27 +132,50 @@ NULL
 
 #' @rdname day08
 #' @param x A character matrix with 14 columns.
-#' @return Number of unique digits in the output.
+#' @return `count_unique`: Number of unique digits in the output.
 #' @export
 count_unique <- function(x) {
   sum(nchar(x[, -(1:10)]) %in% c(2, 3, 4, 7))
 }
 
+contains <- function(strings, letters) {
+  vapply(strsplit(strings, ''),
+         function(s) all(strsplit(letters, '')[[1]] %in% s),
+         logical(1))
+}
+
 #' @rdname day08
+#' @import igraph
+#' @param vec A character vector of length 14, corresponding to a row of `x`.
+#' @return `output_value`: A four-digit integer.
 #' @export
-output_value <- function(row) {
-  inputs <- head(row, -4)
-  outputs <- tail(row, 4)
-  # NB order within a string doesn't matter. just which letters appear
-  # bipartite graph from signals to possible digits
-  # number -> no. segments
-  # c(8 = 7, (a, b, c, d, e, f & g)
-  #   4 = 4,    (b, c, d     f)
-  #   7 = 3, (a,    c        f)
-  #   1 = 2)       (c        f)
-  # Candidates for each segment in the display.
-  # Successively reduce these to eliminate possibilities.
-  segments <- replicate(7, letters[1:7], simplify = FALSE)
-  #
-  NULL
+output_value <- function(vec) {
+  segments <- c('abcefg', 'cf', 'acdeg', 'acdfg', 'bcdf',
+                'abdfg', 'abdefg', 'acf', 'abcdefg', 'abcdfg')
+  nchars <- setNames(nchar(segments), 0:9)
+
+  # Sort the strings
+  vec <- sapply(strsplit(vec, ''), function(d) paste(sort(d), collapse = ''))
+  sgn <- head(vec, 10)
+  out <- tail(vec, 4)
+
+  # Store the known values
+  digits <- setNames(character(10), 0:9)
+  unique <- c('1', '4', '7', '8')
+  digits[unique] <- sgn[match(nchars[unique], nchar(sgn))]
+
+  # Remaining digits have 5 or 6 segments:
+  sgn <- setdiff(sgn, digits)
+  digits['3'] <- sgn[nchar(sgn) == 5 & contains(sgn, digits['1'])]
+  digits['6'] <- sgn[nchar(sgn) == 6 & !contains(sgn, digits['1'])]
+  sgn <- setdiff(sgn, digits)
+  digits['0'] <- sgn[nchar(sgn) == 6 & !contains(sgn, digits['4'])]
+  sgn <- setdiff(sgn, digits)
+  digits['9'] <- sgn[nchar(sgn) == 6]
+  sgn <- setdiff(sgn, digits)
+  digits['2'] <- sgn[contains(sgn, do.call(setdiff, unname(strsplit(digits[c('8', '6')], ''))))]
+  digits['5'] <- setdiff(sgn, digits)
+
+  # Combine four output digits:
+  as.numeric(paste(match(out, digits) - 1, collapse = ''))
 }

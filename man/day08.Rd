@@ -11,13 +11,17 @@
 \usage{
 count_unique(x)
 
-output_value(row)
+output_value(vec)
 }
 \arguments{
 \item{x}{A character matrix with 14 columns.}
+
+\item{vec}{A character vector of length 14, corresponding to a row of \code{x}.}
 }
 \value{
-Number of unique digits in the output.
+\code{count_unique}: Number of unique digits in the output.
+
+\code{output_value}: A four-digit integer.
 }
 \description{
 You barely reach the safety of the cave when the whale smashes into the cave mouth, collapsing it. Sensors indicate another exit to this cave at a much greater depth, so you have no choice but to press on.
