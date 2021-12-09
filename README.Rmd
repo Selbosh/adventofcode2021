@@ -52,6 +52,7 @@ get_solution(5)
 get_solution(6)
 get_solution(7)
 get_solution(8)
+get_solution(9)
 ```
 
 ## Attribution

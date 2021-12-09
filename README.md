@@ -63,6 +63,10 @@ get_solution(7)
 #> [1] 100347031
 get_solution(8)
 #> [1] 321
+#> [1] 1028926
+get_solution(9)
+#> [1] 560
+#> [1] 959136
 ```
 
 ## Attribution
