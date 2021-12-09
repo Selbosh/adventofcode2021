@@ -63,14 +63,10 @@
 NULL
 
 lowest <- function(h) {
-  # right
-  h < cbind(h, Inf)[, -1] &
-  # down
-  h < rbind(h, Inf)[-1, ] &
-  # left
-  h < cbind(Inf, h[, -ncol(h)]) &
-  # up
-  h < rbind(Inf, h[-nrow(h), ])
+  h < cbind(h, Inf)[, -1] &        # right
+  h < rbind(h, Inf)[-1, ] &        # down
+  h < cbind(Inf, h[, -ncol(h)]) &  # left
+  h < rbind(Inf, h[-nrow(h), ])    # up
 }
 
 #' @rdname day09
@@ -81,6 +77,12 @@ lowest_points <- function(h) {
   h[lowest(h)]
 }
 
+"%c%" <- function(x, y) {
+  ifelse(is.infinite(x), x,
+         ifelse(!is.na(x), x,
+                ifelse(!is.infinite(y), y, x)))
+}
+
 #' @rdname day09
 #' @return `basins`: sizes of the three largest basins.
 #' @export
@@ -89,14 +91,11 @@ basins <- function(h) {
   h[] <- ifelse(h < 9, NA, Inf)
   h[l] <- 1:sum(l)
   while (anyNA(h)) {
-    for (i in 1:nrow(h)) for (j in 1:ncol(h)) {
-      if (is.na(h[i, j])) {
-        nbrs <- h[cbind(c(pmax(i - 1, 1), pmin(i + 1, nrow(h)), i, i),
-                        c(j, j, pmax(j - 1, 1), pmin(j + 1, ncol(h))))]
-        if (any(is.finite(nbrs)))
-          h[i, j] <- nbrs[is.finite(nbrs)][1]
-      }
-    }
+    h <- h %c%
+      cbind(h, NA)[, -1] %c%        # right
+      rbind(h, NA)[-1, ] %c%        # down
+      cbind(NA, h[, -ncol(h)]) %c%  # left
+      rbind(NA, h[-nrow(h), ])      # up
   }
   sizes <- table(h[is.finite(h)])
   head(sort(sizes, decreasing = TRUE), 3)
