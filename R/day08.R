@@ -145,7 +145,6 @@ contains <- function(strings, letters) {
 }
 
 #' @rdname day08
-#' @import igraph
 #' @param vec A character vector of length 14, corresponding to a row of `x`.
 #' @return `output_value`: A four-digit integer.
 #' @export
