@@ -136,6 +136,6 @@ autocomplete <- function(lines) {
   illegals <- grep('\\)|>|\\}|\\]', lines)
   chars <- strsplit(lines[-illegals], '')
   scores <- sapply(chars, Reduce, init = 0, right = TRUE,
-                   f = \(s, c) 5 * s + complete_score[c])
+                   f = \(c, s) 5 * s + complete_score[c])
   median(scores)
 }
