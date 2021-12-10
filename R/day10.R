@@ -120,20 +120,20 @@ complete_score <- c('(' = 1, '[' = 2, '{' = 3, '<' = 4)
 #' @return Score, an integer.
 #' @export
 syntax_score <- function(lines) {
-  nc <- -1
-  while (nc != (nc <- sum(nchar(lines))))
-    lines <- gsub('\\(\\)|<>|\\{\\}|\\[\\]', '', lines)
-  illegals <- regmatches(lines, regexpr('\\)|>|\\}|\\]', lines))
+  old <- ''
+  while (!identical(old, lines -> old))
+    lines <- gsub(r'{\(\)|<>|\{\}|\[\]}', '', lines)
+  illegals <- regmatches(lines, regexpr(r'{\)|>|\}|\]}', lines))
   sum(illegal_score[illegals])
 }
 
 #' @rdname day10
 #' @export
 autocomplete <- function(lines) {
-  nc <- -1
-  while (nc != (nc <- sum(nchar(lines))))
-    lines <- gsub('\\(\\)|<>|\\{\\}|\\[\\]', '', lines)
-  illegals <- grep('\\)|>|\\}|\\]', lines)
+  old <- ''
+  while (!identical(old, lines -> old))
+    lines <- gsub(r'{\(\)|<>|\{\}|\[\]}', '', lines)
+  illegals <- grep(r'{\)|>|\}|\]}', lines)
   chars <- strsplit(lines[-illegals], '')
   scores <- sapply(chars, Reduce, init = 0, right = TRUE,
                    f = \(c, s) 5 * s + complete_score[c])
