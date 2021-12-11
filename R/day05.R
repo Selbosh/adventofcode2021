@@ -95,5 +95,4 @@ count_intersections <- function(lines, part2 = FALSE) {
   sum(table(as.data.frame(xy)) > 1)
 }
 
-
-
+globalVariables(c('x1', 'x2', 'y1', 'y2'))

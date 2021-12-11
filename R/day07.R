@@ -62,6 +62,7 @@ NULL
 #' @rdname day07
 #' @param x A vector of initial crab positions.
 #' @return Total fuel required at optimal location.
+#' @importFrom stats optimize
 #' @export
 minimize_fuel <- function(x) {
   f <- function(pos) sum(abs(x - pos))

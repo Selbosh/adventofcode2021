@@ -128,6 +128,7 @@ syntax_score <- function(lines) {
 }
 
 #' @rdname day10
+#' @importFrom stats median
 #' @export
 autocomplete <- function(lines) {
   old <- ''

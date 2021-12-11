@@ -147,6 +147,7 @@ contains <- function(strings, letters) {
 #' @rdname day08
 #' @param vec A character vector of length 14, corresponding to a row of `x`.
 #' @return `output_value`: A four-digit integer.
+#' @importFrom stats setNames
 #' @export
 output_value <- function(vec) {
   segments <- c('abcefg', 'cf', 'acdeg', 'acdfg', 'bcdf',
