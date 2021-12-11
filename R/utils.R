@@ -43,16 +43,13 @@ get_solution <- function(day) {
 #' @examples
 #' read.matrix(input_file(3))
 #'
-#' @param file A text file or connection
-#' @param type Storage mode, defaults to numeric
+#' @param file A text file or connection.
+#' @param ... arguments passed to [type.convert].
 #'
-#' @return A matrix
-#'
+#' @return A matrix.
+#' @importFrom utils type.convert
 #' @export
-read.matrix <- function(file, type = 'numeric') {
-  type <- match.arg(type,
-                    c('numeric', 'logical', 'integer', 'character'))
+read.matrix <- function(file, ...) {
   mat <- do.call(rbind, strsplit(readLines(file), ''))
-  storage.mode(mat) <- type
-  mat
+  type.convert(mat, as.is = TRUE)
 }

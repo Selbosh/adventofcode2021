@@ -4,15 +4,15 @@
 \alias{read.matrix}
 \title{Read a fixed-width matrix with no delimiter or header}
 \usage{
-read.matrix(file, type = "numeric")
+read.matrix(file, ...)
 }
 \arguments{
-\item{file}{A text file or connection}
+\item{file}{A text file or connection.}
 
-\item{type}{Storage mode, defaults to numeric}
+\item{...}{arguments passed to \link{type.convert}.}
 }
 \value{
-A matrix
+A matrix.
 }
 \description{
 Equivalent to \code{read.fwf} but faster and width does not need to be specified.
