@@ -44,12 +44,11 @@ get_solution <- function(day) {
 #' read.matrix(input_file(3))
 #'
 #' @param file A text file or connection.
-#' @param ... arguments passed to [type.convert].
 #'
 #' @return A matrix.
 #' @importFrom utils type.convert
 #' @export
-read.matrix <- function(file, ...) {
+read.matrix <- function(file) {
   mat <- do.call(rbind, strsplit(readLines(file), ''))
   type.convert(mat, as.is = TRUE)
 }
