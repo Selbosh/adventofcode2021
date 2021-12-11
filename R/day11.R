@@ -372,17 +372,27 @@
 #' @name day11
 NULL
 
-kernel <- matrix(1:9 != 5, 3, 3)
+add_neighbours <- function(x) {
+  I <- nrow(x)
+  J <- ncol(x)
+  cbind(x[, -1], 0) +    # Right
+    rbind(x[-1, ], 0) +  # Down
+    cbind(0, x[, -J]) +  # Left
+    rbind(0, x[-I, ]) +  # Up
+    rbind(cbind(x[-1, -1], 0), 0) + # SE
+    rbind(0, cbind(x[-I, -1], 0)) + # NE
+    rbind(cbind(0, x[-1, -J]), 0) + # SW
+    rbind(0, cbind(0, x[-I, -J]))   # NW
+}
 
 #' @rdname day11
 #' @param x A matrix of integers.
-#' @importFrom OpenImageR convolution
 #' @export
 step1 <- function(x) {
   x <- x + 1
   flashing <- flashed <- x == 10
   while (any(flashing)) {
-    x <- x + OpenImageR::convolution(flashing, kernel)
+    x <- x + add_neighbours(flashing)
     flashing <- x > 9 & !flashed
     flashed <- flashing | flashed
   }
