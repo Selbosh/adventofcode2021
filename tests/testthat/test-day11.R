@@ -15,7 +15,6 @@ test_that("Day 11, small inputs", {
   small <- lapply(small_input, \(x) read.matrix(textConnection(x)))
   expect_equal(step1(small[[1]]), small[[2]])
   expect_equal(step1(small[[2]]), small[[3]])
-  expect_equal(count_flashes(small[[1]]), 9)
   expect_equal(count_flashes(small[[1]], 2), 9)
 })
 
