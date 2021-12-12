@@ -73,6 +73,10 @@ get_solution(10)
 get_solution(11)
 #> [1] 1688
 #> [1] 403
+get_solution(12)
+#> Warning in file(con, "r"): file("") only supports open = "w+" and open = "w+b":
+#> using the former
+#> [1] 0
 ```
 
 ## Attribution
