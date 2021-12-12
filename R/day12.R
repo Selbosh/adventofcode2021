@@ -151,41 +151,43 @@
 NULL
 
 #' @rdname day12
+#' @param file A file or text connection.
 #' @export
 read_edges <- function(file) {
-  edges <- strsplit(readLines(file), '-')
-  c(edges, lapply(edges, rev))
-}
-
-is_small <- function(x) x == tolower(x)
-
-#' @rdname day12
-#' @export
-count_paths <- function(edgelist, path = 'start') {
-  count <- 0
-  current <- path[length(path)]
-  for (e in edgelist) if (e[1] == current) {
-    if (!(is_small(e[2]) & e[2] %in% path)) {
-      new_path <- c(path, e[2])
-      count <- count + if (e[2] == 'end') 1 else count_paths(edgelist, new_path)
-    }
-  }
-  count
+  edges <- read.table(file, sep = '-', col.names = c('from', 'to'))
+  edges <- rbind(edges, setNames(edges, rev(colnames(edges))))
+  edges <- edges[edges$to != 'start', ]
+  split(edges$to, edges$from)
 }
 
 #' @rdname day12
+#' @param edgelist A named list of available edges.
+#' @param node The node to start from.
 #' @export
-count_paths2 <- function(edgelist, path = 'start') {
-  visited_twice <- table(path[is_small(path)]) > 1
-  if (any(visited_twice))
-    return(count_paths(edgelist, path))
-  count <- 0
-  current <- path[length(path)]
-  for (e in edgelist) if (e[1] == current) {
-    if (e[2] != 'start') {
-      new_path <- c(path, e[2])
-      count <- count + if (e[2] == 'end') 1 else count_paths2(edgelist, new_path)
+count_paths <- function(edgelist, node = 'start') {
+  if (node == 'end')
+    return(1)
+  if (!length(edgelist[[node]]))
+    return(0)
+  if (node == tolower(node))
+    edgelist <- lapply(edgelist, \(v) v[node != v])
+  sum(sapply(edgelist[[node]], count_paths, e = edgelist))
+}
+
+#' @rdname day12
+#' @param visited A character vector of vertices visited so far.
+#' @export
+count_paths2 <- function(edgelist, node = 'start', visited = NULL) {
+  if (node == 'end')
+    return(1)
+  if (node == tolower(node)) {
+    if (node %in% visited) {
+      edgelist <- lapply(edgelist, \(v) v[!v %in% visited])
+      return(count_paths(edgelist, node))
     }
+    visited <- union(visited, node)
   }
-  count
+  if (!length(edgelist[[node]]))
+    return(0)
+  sum(sapply(edgelist[[node]], count_paths2, e = edgelist, visited))
 }

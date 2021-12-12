@@ -12,9 +12,18 @@
 \usage{
 read_edges(file)
 
-count_paths(edgelist, path = "start")
+count_paths(edgelist, node = "start")
 
-count_paths2(edgelist, path = "start")
+count_paths2(edgelist, node = "start", visited = NULL)
+}
+\arguments{
+\item{file}{A file or text connection.}
+
+\item{edgelist}{A named list of available edges.}
+
+\item{node}{The node to start from.}
+
+\item{visited}{A character vector of vertices visited so far.}
 }
 \description{
 With your submarine's subterranean subsystems subsisting suboptimally, the only way you're getting out of this cave anytime soon is by finding a path yourself. Not just a path - the only way to know if you've found the best path is to find all of them.
