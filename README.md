@@ -76,7 +76,11 @@ get_solution(11)
 get_solution(12)
 #> [1] 3292
 #> [1] 89592
+get_solution(13)
+#> [1] 671
 ```
+
+<img src="man/figures/README-day1-1.png" width="100%" />
 
 ## Attribution
 

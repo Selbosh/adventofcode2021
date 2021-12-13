@@ -171,7 +171,8 @@ count_paths <- function(edgelist, node = 'start') {
     return(0)
   if (node == tolower(node))
     edgelist <- lapply(edgelist, \(v) v[node != v])
-  sum(sapply(edgelist[[node]], count_paths, e = edgelist))
+  sum(vapply(edgelist[[node]], count_paths, e = edgelist,
+             FUN.VALUE = numeric(1)))
 }
 
 #' @rdname day12
@@ -189,5 +190,6 @@ count_paths2 <- function(edgelist, node = 'start', visited = NULL) {
   }
   if (!length(edgelist[[node]]))
     return(0)
-  sum(sapply(edgelist[[node]], count_paths2, e = edgelist, visited))
+  sum(vapply(edgelist[[node]], count_paths2, e = edgelist, visited,
+             FUN.VALUE = numeric(1)))
 }

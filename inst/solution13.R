@@ -1,0 +1,5 @@
+library(adventofcode2021)
+input <- read_origami(input_file(13))
+sum(fold_paper(input$paper, input$instr, 1))
+folded <- fold_paper(input$paper, input$instr)
+image(folded[, ncol(folded):1], col = c('white', '#f5c966'))
