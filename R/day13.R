@@ -122,13 +122,9 @@ NULL
 #' @param file A filename or text connection.
 #' @export
 read_origami <- function(file) {
-  input <- readLines(file)
-  input <- split(input, cumsum(input == ''))
-  coords <- type.convert(do.call(rbind, strsplit(input[[1]], ',')), as.is = T)
-  paper <- matrix(0, max(coords[, 1]) + 1, max(coords[, 2]) + 1)
-  paper[coords + 1] <- 1
-  folds <- as.data.frame(do.call(rbind, strsplit(input[[2]][-1], '=')))
-  folds[, 2] <- as.numeric(folds[, 2])
+  n <- which(readLines(file) == '')
+  paper <- read.table(file, sep = ',', nrows = n - 1, col.names = c('x', 'y'))
+  folds <- read.table(file, sep = '=', skip = n, col.names = c('dir', 'val'))
   list(paper, folds)
 }
 
@@ -143,10 +139,9 @@ fold_paper <- function(x, folds, n = nrow(folds)) {
   x
 }
 
-fold_once <- function(x, dir, f) {
-    if (dir == 'fold along y') {
-      x[, 1:f] | x[, ncol(x):(f + 2)]
-    } else
-      x[1:f, ] | x[nrow(x):(f + 2), ]
+fold_once <- function(x, dir, val) {
+  d <- sub('fold along ', '', dir)
+  x[, d] <- ifelse(x[, d] >= val, 2 * val - x[, d], x[, d])
+  x[!duplicated(x), ]
 }
 
