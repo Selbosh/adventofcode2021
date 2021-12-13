@@ -1,4 +1,5 @@
 #' Day 13: Transparent Origami
+#'
 #' You reach another volcanically active part of the cave. It would be nice if you could do some kind of thermal imaging so you could tell ahead of time which caves are too hot to safely enter.
 #'
 #' Fortunately, the submarine seems to be equipped with a thermal camera! When you activate it, you are greeted with:
@@ -107,6 +108,12 @@
 #'
 #' How many dots are visible after completing just the first fold instruction on your transparent paper?
 #'
+#' ## Part Two:
+#'
+#' Finish folding the transparent paper according to the instructions. The manual says the code is always eight capital letters.
+#'
+#' What code do you use to activate the infrared thermal imaging camera system?
+#'
 #' @source <https://adventofcode.com/2021/day/13>
 #' @name day13
 NULL
@@ -130,7 +137,7 @@ read_origami <- function(file) {
 #' @param folds A data frame of folding instructions.
 #' @param n Number of `folds` to do.
 #' @export
-fold_paper <- function(x, folds, n = nrow(instr)) {
+fold_paper <- function(x, folds, n = nrow(folds)) {
   for (i in 1:n)
     x <- fold_once(x, folds[i, 1], folds[i, 2])
   x

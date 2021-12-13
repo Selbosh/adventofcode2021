@@ -4,15 +4,14 @@
 \alias{day13}
 \alias{read_origami}
 \alias{fold_paper}
-\title{Day 13: Transparent Origami
-You reach another volcanically active part of the cave. It would be nice if you could do some kind of thermal imaging so you could tell ahead of time which caves are too hot to safely enter.}
+\title{Day 13: Transparent Origami}
 \source{
 \url{https://adventofcode.com/2021/day/13}
 }
 \usage{
 read_origami(file)
 
-fold_paper(x, folds, n = nrow(instr))
+fold_paper(x, folds, n = nrow(folds))
 }
 \arguments{
 \item{file}{A filename or text connection.}
@@ -24,9 +23,11 @@ fold_paper(x, folds, n = nrow(instr))
 \item{n}{Number of \code{folds} to do.}
 }
 \description{
-Fortunately, the submarine seems to be equipped with a thermal camera! When you activate it, you are greeted with:
+You reach another volcanically active part of the cave. It would be nice if you could do some kind of thermal imaging so you could tell ahead of time which caves are too hot to safely enter.
 }
 \details{
+Fortunately, the submarine seems to be equipped with a thermal camera! When you activate it, you are greeted with:
+
 Congratulations on your purchase! To activate this infrared thermal imaging
 camera system, please enter the code found on page 1 of the manual.
 Apparently, the Elves have never used this feature. To your surprise, you manage to find the manual; as you go to open it, page 1 falls out. It's a large sheet of transparent paper! The transparent paper is marked with random dots and includes instructions on how to fold it up (your puzzle input). For example:\preformatted{6,10
@@ -124,4 +125,10 @@ The instructions made a square!
 The transparent paper is pretty big, so for now, focus on just completing the first fold. After the first fold in the example above, 17 dots are visible - dots that end up overlapping after the fold is completed count as a single dot.
 
 How many dots are visible after completing just the first fold instruction on your transparent paper?
+\subsection{Part Two:}{
+
+Finish folding the transparent paper according to the instructions. The manual says the code is always eight capital letters.
+
+What code do you use to activate the infrared thermal imaging camera system?
+}
 }
