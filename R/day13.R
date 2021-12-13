@@ -118,22 +118,21 @@ read_origami <- function(file) {
   input <- readLines(file)
   input <- split(input, cumsum(input == ''))
   coords <- type.convert(do.call(rbind, strsplit(input[[1]], ',')), as.is = T)
-  mat <- matrix(0, max(coords[, 1]) + 1, max(coords[, 2]) + 1) # y, x
-  mat[coords + 1] <- 1
+  paper <- matrix(0, max(coords[, 1]) + 1, max(coords[, 2]) + 1)
+  paper[coords + 1] <- 1
   folds <- as.data.frame(do.call(rbind, strsplit(input[[2]][-1], '=')))
   folds[, 2] <- as.numeric(folds[, 2])
-  list(paper = mat,
-       instructions = setNames(folds, c('dir', 'pos')))
+  list(paper, folds)
 }
 
 #' @rdname day13
 #' @param x A binary matrix.
-#' @param instr A data frame of folding instructions.
-#' @param n Number of folds from `instr` to make.
+#' @param folds A data frame of folding instructions.
+#' @param n Number of `folds` to do.
 #' @export
-fold_paper <- function(x, instr, n = nrow(instr)) {
+fold_paper <- function(x, folds, n = nrow(instr)) {
   for (i in 1:n)
-    x <- fold_once(x, instr[i, 1], instr[i, 2])
+    x <- fold_once(x, folds[i, 1], folds[i, 2])
   x
 }
 

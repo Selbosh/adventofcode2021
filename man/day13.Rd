@@ -12,16 +12,16 @@ You reach another volcanically active part of the cave. It would be nice if you 
 \usage{
 read_origami(file)
 
-fold_paper(x, instr, n = nrow(instr))
+fold_paper(x, folds, n = nrow(instr))
 }
 \arguments{
 \item{file}{A filename or text connection.}
 
 \item{x}{A binary matrix.}
 
-\item{instr}{A data frame of folding instructions.}
+\item{folds}{A data frame of folding instructions.}
 
-\item{n}{Number of folds from \code{instr} to make.}
+\item{n}{Number of \code{folds} to do.}
 }
 \description{
 Fortunately, the submarine seems to be equipped with a thermal camera! When you activate it, you are greeted with:

@@ -21,6 +21,6 @@ test_that("Day 13", {
 fold along y=7
 fold along x=5'
   data <- read_origami(textConnection(input))
-  fold1 <- with(data, fold_paper(paper, instructions, 1))
+  fold1 <- fold_paper(data[[1]], data[[2]], 1)
   expect_equal(sum(fold1), 17)
 })
