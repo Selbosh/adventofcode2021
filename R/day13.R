@@ -124,7 +124,8 @@ NULL
 read_origami <- function(file) {
   n <- which(readLines(file) == '')
   paper <- read.table(file, sep = ',', nrows = n - 1, col.names = c('x', 'y'))
-  folds <- read.table(file, sep = '=', skip = n, col.names = c('dir', 'val'))
+  folds <- read.table(file, sep = '=', skip = n)
+  folds[, 1] <- gsub('[^xy]', '', folds[, 1])
   list(paper, folds)
 }
 
@@ -139,8 +140,7 @@ fold_paper <- function(x, folds, n = nrow(folds)) {
   x
 }
 
-fold_once <- function(x, dir, val) {
-  d <- sub('fold along ', '', dir)
+fold_once <- function(x, d, val) {
   x[, d] <- ifelse(x[, d] >= val, 2 * val - x[, d], x[, d])
   x[!duplicated(x), ]
 }
