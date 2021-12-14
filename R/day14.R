@@ -71,23 +71,22 @@ NULL
 #' @export
 read_polymer <- function(file) {
   template <- strsplit(readLines(file, n = 1), '')[[1]]
-  rules <- read.table(file, skip = 1) |>
-    transform(first = substring(V1, 1, 1),
-              second = substring(V1, 2, 2),
-              insert = V3) |>
-    subset(select = c(first, second, insert))
+  rules <- read.table(file, skip = 1)
+  rules <- data.frame(first  = substr(rules[, 1], 1, 1),
+                      second = substr(rules[, 1], 2, 2),
+                      insert = rules[, 3])
   template <- as.data.frame(table(
-    data.frame(first = head(template, -1),
+    data.frame(first  = head(template, -1),
                second = tail(template, -1))
-  ), stringsAsFactors = FALSE)
+  ), stringsAsFactors = F)
   list(template = template, rules = rules)
 }
 
-insert_once <- function(pairs, rules) {
-  data <- with(merge(pairs, rules),
-               data.frame(first = c(first, insert),
+insert_once <- function(template, rules) {
+  data <- with(merge(template, rules),
+               data.frame(first  = c(first, insert),
                           second = c(insert, second),
-                          Freq = c(Freq, Freq)))
+                          Freq = rep(Freq, 2)))
   aggregate(Freq ~ first + second, data, sum)
 }
 
@@ -103,6 +102,7 @@ insert_polymer <- function(template, rules, n = 1) {
 }
 
 #' @rdname day14
+#' @importFrom stats xtabs aggregate
 #' @export
 count_polymer <- function(template) {
   tab <- xtabs(Freq ~ first + second, template)
