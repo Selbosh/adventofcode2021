@@ -77,7 +77,7 @@ read_polymer <- function(file) {
                       insert = rules[, 3])
   template <- data.frame(first  = head(template, -1),
                          second = tail(template, -1),
-                         Freq = 1)
+                         n = 1)
   list(template = template, rules = rules)
 }
 
@@ -85,8 +85,8 @@ insert_once <- function(template, rules) {
   data <- with(merge(template, rules),
                data.frame(first  = c(first, insert),
                           second = c(insert, second),
-                          Freq = rep(Freq, 2)))
-  aggregate(Freq ~ first + second, data, sum)
+                          n = rep(n, 2)))
+  aggregate(n ~ first + second, data, sum)
 }
 
 #' @rdname day14
@@ -104,6 +104,6 @@ insert_polymer <- function(template, rules, n = 1) {
 #' @importFrom stats xtabs aggregate
 #' @export
 count_polymer <- function(template) {
-  tab <- xtabs(Freq ~ first + second, template)
+  tab <- xtabs(n ~ first + second, template)
   (rowSums(tab) + colSums(tab) + 1) %/% 2
 }
