@@ -75,10 +75,9 @@ read_polymer <- function(file) {
   rules <- data.frame(first  = substr(rules[, 1], 1, 1),
                       second = substr(rules[, 1], 2, 2),
                       insert = rules[, 3])
-  template <- as.data.frame(table(
-    data.frame(first  = head(template, -1),
-               second = tail(template, -1))
-  ), stringsAsFactors = F)
+  template <- data.frame(first  = head(template, -1),
+                         second = tail(template, -1),
+                         Freq = 1)
   list(template = template, rules = rules)
 }
 
