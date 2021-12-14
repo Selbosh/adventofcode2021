@@ -82,6 +82,12 @@ get_solution(13)
 
 <img src="man/figures/README-day1-1.png" width="100%" />
 
+``` r
+get_solution(14)
+#> [1] 2947
+#> [1] "3232426226464"
+```
+
 ## Attribution
 
 Puzzles and their descriptions are by Eric Wastl.
