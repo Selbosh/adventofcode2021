@@ -1,6 +1,7 @@
 library(adventofcode2021)
 polymer <- read_polymer(input_file(14))
-insert10 <- with(polymer, insert_polymer(template, rules, 10))
-insert40 <- with(polymer, insert_polymer(template, rules, 40))
-diff(range(count_polymer(insert10)))
-format(diff(range(count_polymer(insert40))), scientific = FALSE)
+with(polymer, insert_polymer(template, rules, 10)) |>
+  count_polymer() |> range() |> diff()
+with(polymer, insert_polymer(template, rules, 40)) |>
+  count_polymer() |> range() |> diff() |>
+  format(scientific = FALSE)
