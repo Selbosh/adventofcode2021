@@ -118,11 +118,11 @@ NULL
 #' @importFrom igraph graph_from_data_frame
 #' @export
 lattice_from_matrix <- function(m) {
-  N <- length(m)
-  edges <- data.frame(node1 = c((1:N)[row(m) < nrow(m)],
-                                (1:N)[col(m) < ncol(m)]),
-                      node2 = c((1:N)[row(m) > 1],
-                                (1:N)[col(m) > 1]))
+  id <- seq_along(m)
+  edges <- data.frame(node1 = c(id[row(m) < nrow(m)],
+                                id[col(m) < ncol(m)]),
+                      node2 = c(id[row(m) > 1],
+                                id[col(m) > 1]))
   edges <- rbind(edges, setNames(edges, c('node2', 'node1')))
   edges$weight <- m[edges$node2]
   igraph::graph_from_data_frame(edges)
