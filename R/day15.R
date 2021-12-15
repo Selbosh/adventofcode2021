@@ -140,8 +140,8 @@ lowest_total_risk <- function(g) {
 #' @param times Number of times to tile the matrix.
 #' @export
 tile_matrix <- function(m, times = 5) {
-  m <- do.call(cbind, lapply(seq_len(times) - 1, '+', m))
-  m <- do.call(rbind, lapply(seq_len(times) - 1, '+', m))
+  m <- Reduce(cbind, lapply(seq_len(times) - 1, '+', m))
+  m <- Reduce(rbind, lapply(seq_len(times) - 1, '+', m))
   m[m > 9] <- m[m > 9] %% 10 + 1
   m
 }
