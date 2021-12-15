@@ -1,0 +1,6 @@
+library(adventofcode2021)
+m <- read.matrix(input_file(15))
+g <- lattice_from_matrix(m)
+lowest_total_risk(g)
+g2 <- lattice_from_matrix(tile_matrix(m))
+lowest_total_risk(g2)

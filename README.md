@@ -86,6 +86,9 @@ get_solution(13)
 get_solution(14)
 #> [1] 2947
 #> [1] "3232426226464"
+get_solution(15)
+#> [1] 388
+#> [1] 2819
 ```
 
 ## Attribution
