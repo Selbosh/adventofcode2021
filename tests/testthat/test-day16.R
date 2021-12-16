@@ -35,6 +35,5 @@ test_that("Day 16", {
   expect_equal(packet_decode(input12) |> packet_parse(T), 5 < 15)
   expect_equal(packet_decode(input13) |> packet_parse(T), 5 > 15)
   expect_equal(packet_decode(input14) |> packet_parse(T), 5 == 15)
-  expect_equal(packet_decode(input15) |> packet_parse() |>
-                 str2expression() |> eval(), 1 + 3 == 2 * 2)
+  expect_equal(packet_decode(input15) |> packet_parse(T), 1 + 3 == 2 * 2)
 })

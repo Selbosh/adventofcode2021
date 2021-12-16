@@ -235,5 +235,8 @@ combine_expr <- function(node, eval = FALSE) {
 packet_parse <- function(lst, eval = FALSE) {
   if (!is.list(lst))
     return(combine_expr(lst, eval))
-  packet_parse(unlist(lapply(lst, packet_parse, eval), use.names = FALSE))
+  expr <- packet_parse(unlist(lapply(lst, packet_parse, eval), use.names = F))
+  if (!eval)
+    return(expr)
+  eval(parse(text = expr))
 }
