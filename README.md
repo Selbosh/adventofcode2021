@@ -91,6 +91,7 @@ get_solution(15)
 #> [1] 2819
 get_solution(16)
 #> [1] 886
+#> [1] "sum(prod(425542, FALSE), 21357, prod(`>`(34, 24), 32566), prod(`<`(30, 27), 4507180), min(prod(prod(sum(prod(max(prod(min(prod(min(prod(max(sum(sum(max(sum(sum(min(prod(130))))))))))))))))))), 139930778832, prod(FALSE, 10), 602147, 62199, prod(14849899, TRUE), prod(4083, FALSE), 6562080, 73, prod(26, 34, 32), 194, 2360053696, 135299872, 186042, 30059, 9, prod(FALSE, 28699), prod(1945, TRUE), prod(7, FALSE), 12, prod(200, FALSE), 3154, prod(3, FALSE), 3055, 13, 1175, 1392474491, 14219, prod(150, TRUE), 37007908601, 13008816, 20723, 8, prod(5, TRUE), sum(420, 336, 468), 1909001, 39597, 982557, 68, prod(FALSE, 41177), prod(FALSE, 3937), 25989131, 229, 13, prod(55300721, FALSE), prod(244, `>`(27, 31)), prod(4494263, `==`(23, 20)), prod(TRUE, 58514), prod(3596530693, `<`(19, 22)))"
 ```
 
 ## Attribution

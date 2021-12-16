@@ -134,13 +134,6 @@ to_bits <- function(x) {
   as.vector(bits)
 }
 
-# to_int <- function(x, base = 2) {
-#   s <- paste(x, collapse = '')
-#   result <- as.double(strtoi(s, base))
-#   if (anyNA(result)) stop('Failed to convert', s, 'to int')
-#   result
-# }
-
 #' @rdname day16
 #' @param bits A vector of bits.
 #' @export
@@ -180,4 +173,67 @@ packet_versions <- function(bits, depth = 0, rem_subs = Inf, eval = FALSE) {
   if (depth)
     acc <- c(acc = acc, length = length(bits))
   acc
+}
+
+#' @rdname day16
+#' @param bits A vector of bits.
+#' @export
+packet_decode <- function(bits, depth = 0, rem_subs = Inf) {
+  acc <- NULL
+  while (any(bits > 0) & rem_subs > 0) {
+    rem_subs <- rem_subs - 1
+    type <- binary_to_int(bits[4:6])
+    bits <- tail(bits, -6)
+    op <- c('sum', 'prod', 'min', 'max', 'c', '`>`', '`<`', '`==`')[type + 1]
+    if (type == 4) { # literal value
+      n_groups <- which.min(bits[seq(1, length(bits), 5)])
+      sub <- head(bits, n_groups * 5)
+      sub <- sub[(seq_along(sub) - 1) %% 5 > 0]
+      literal_value <- binary_to_int(sub)
+      acc$expr <- c(acc$expr, literal_value)
+      bits <- tail(bits, -n_groups * 5)
+      next
+    }
+    # Operator mode:
+    lentype <- bits[1]
+    bits <- bits[-1]
+    if (lentype == 0) {
+      sub_length <- binary_to_int(bits[1:15])
+      bits <- tail(bits, -15)
+      sub  <- head(bits, sub_length)
+      sub_result <- packet_decode(sub, depth + 1)
+      subexpr <- c(op, sub_result[['expr']])
+      acc$expr <- c(acc$expr, list(subexpr))
+      bits <- tail(bits, -sub_length)
+    } else {
+      n_subs <- binary_to_int(bits[1:11])
+      bits <- tail(bits, -11)
+      sub_result <- packet_decode(bits, depth + 1, n_subs)
+      subexpr <- c(op, sub_result[['expr']])
+      acc$expr <- c(acc$expr, list(subexpr))
+      bits <- tail(bits, sub_result[['length']])
+    }
+  }
+  if (depth)
+    acc$length <- length(bits)
+  acc
+}
+
+combine_expr <- function(node, eval = FALSE) {
+  if (length(node) == 1)
+    return(node)
+  expr <- sprintf('%s(%s)', node[1], paste(node[-1], collapse = ', '))
+  if (!eval)
+    return(expr)
+  eval(str2expression(expr))
+}
+
+#' @rdname day16
+#' @param tree A (deeply) nested list, as produced from `packet_decode`.
+#' @param eval Logical. Evaluate the final expression?
+#' @export
+packet_parse <- function(lst, eval = FALSE) {
+  if (!is.list(lst))
+    return(combine_expr(lst, eval))
+  packet_parse(unlist(lapply(lst, packet_parse, eval), use.names = FALSE))
 }

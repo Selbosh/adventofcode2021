@@ -4,6 +4,8 @@
 \alias{day16}
 \alias{to_bits}
 \alias{packet_versions}
+\alias{packet_decode}
+\alias{packet_parse}
 \title{Day 16: Packet Decoder}
 \source{
 \url{https://adventofcode.com/2021/day/16}
@@ -12,11 +14,19 @@
 to_bits(x)
 
 packet_versions(bits, depth = 0, rem_subs = Inf, eval = FALSE)
+
+packet_decode(bits, depth = 0, rem_subs = Inf)
+
+packet_parse(lst, eval = FALSE)
 }
 \arguments{
 \item{x}{A hexadecimal string.}
 
 \item{bits}{A vector of bits.}
+
+\item{eval}{Logical. Evaluate the final expression?}
+
+\item{tree}{A (deeply) nested list, as produced from \code{packet_decode}.}
 }
 \description{
 As you leave the cave and reach open waters, you receive a transmission from the Elves back on the ship.
