@@ -130,48 +130,54 @@ NULL
 #' @export
 to_bits <- function(x) {
   ints <- strtoi(strsplit(x, '')[[1]], 16)
-  bits <- sapply(ints, \(n) tail(rev(as.integer(intToBits(n))), 4))
+  bits <- sapply(ints, \(n) tail(rev(as.numeric(intToBits(n))), 4))
   as.vector(bits)
 }
 
-to_int <- function(x, base = 2) {
-  s <- paste(x, collapse = '')
-  strtoi(s, base)
-}
+# to_int <- function(x, base = 2) {
+#   s <- paste(x, collapse = '')
+#   result <- as.double(strtoi(s, base))
+#   if (anyNA(result)) stop('Failed to convert', s, 'to int')
+#   result
+# }
 
 #' @rdname day16
 #' @param bits A vector of bits.
 #' @export
-decode_packet <- function(bits, n = 1) {
+packet_versions <- function(bits, depth = 0, rem_subs = Inf, eval = FALSE) {
   acc <- 0
-  while (n > 0 | any(bits)) {
-    n <- n - 1
-    version <- to_int(bits[1:3])
+  while (any(bits > 0) & rem_subs > 0) {
+    rem_subs <- rem_subs - 1
+    version <- binary_to_int(bits[1:3])
     acc <- acc + version
-    type <- to_int(bits[4:6])
+    type <- binary_to_int(bits[4:6])
     bits <- tail(bits, -6)
     if (type == 4) { # literal value
       n_groups <- which.min(bits[seq(1, length(bits), 5)])
       sub <- head(bits, n_groups * 5)
       sub <- sub[(seq_along(sub) - 1) %% 5 > 0]
-      # literal_value <- to_int(sub) # not used
+      # literal_value <- binary_to_int(sub)
       bits <- tail(bits, -n_groups * 5)
       next
     }
     # Operator mode:
-    ltype <- bits[1]
+    lentype <- bits[1]
     bits <- bits[-1]
-    if (!ltype) {
-      sub_length <- to_int(bits[1:15])
+    if (lentype == 0) {
+      sub_length <- binary_to_int(bits[1:15])
       bits <- tail(bits, -15)
       sub  <- head(bits, sub_length)
-      acc <- acc + decode_packet(sub) # ?
+      acc <- acc + packet_versions(sub, depth + 1)[['acc']]
       bits <- tail(bits, -sub_length)
     } else {
-      n_subs <- to_int(bits[1:11])
-      n <- n + n_subs
+      n_subs <- binary_to_int(bits[1:11])
       bits <- tail(bits, -11)
+      sub_result <- packet_versions(bits, depth + 1, n_subs)
+      acc <- acc + sub_result[['acc']]
+      bits <- tail(bits, sub_result[['length']])
     }
   }
+  if (depth)
+    acc <- c(acc = acc, length = length(bits))
   acc
 }

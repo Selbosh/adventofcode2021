@@ -1,3 +1,3 @@
 library(adventofcode2021)
 input <- to_bits(readLines(input_file(16)))
-decode_packet(input)
+packet_versions(input)

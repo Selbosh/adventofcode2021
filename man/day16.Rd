@@ -3,7 +3,7 @@
 \name{day16}
 \alias{day16}
 \alias{to_bits}
-\alias{decode_packet}
+\alias{packet_versions}
 \title{Day 16: Packet Decoder}
 \source{
 \url{https://adventofcode.com/2021/day/16}
@@ -11,7 +11,7 @@
 \usage{
 to_bits(x)
 
-decode_packet(bits, n = 1)
+packet_versions(bits, depth = 0, rem_subs = Inf, eval = FALSE)
 }
 \arguments{
 \item{x}{A hexadecimal string.}

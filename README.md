@@ -89,6 +89,8 @@ get_solution(14)
 get_solution(15)
 #> [1] 388
 #> [1] 2819
+get_solution(16)
+#> [1] 886
 ```
 
 ## Attribution

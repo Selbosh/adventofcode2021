@@ -13,20 +13,28 @@ test_that("Day 16", {
   expect_equal(paste(input3, collapse = ''),
                '11101110000000001101010000001100100000100011000001100000')
 
-  expect_equal(decode_packet(input1), 6)
-  expect_equal(decode_packet(input4), 16)
-  expect_equal(decode_packet(input5), 12)
-  expect_equal(decode_packet(input6), 23)
-  expect_equal(decode_packet(input7), 31)
+  expect_equal(packet_versions(input1), 6)
+  expect_equal(packet_versions(input4), 16)
+  expect_equal(packet_versions(input5), 12)
+  expect_equal(packet_versions(input6), 23)
+  expect_equal(packet_versions(input7), 31)
 
-  # input8 <- to_bits('C200B40A82') # 3
-  # input9 <- to_bits('04005AC33890') # 54
-  # input10 <- to_bits('880086C3E88112') # 7
-  # input11 <- to_bits('CE00C43D881120') # 9
-  # input12 <- to_bits('D8005AC2A8F0') # 1
-  # input13 <- to_bits('F600BC2D8F') # 0
-  # input14 <- to_bits('9C005AC2F8F0') # 0
-  # input15 <- to_bits('9C0141080250320F1802104A08') # 1
-  #
-  # expect_equal()
+  input8 <- to_bits('C200B40A82')
+  input9 <- to_bits('04005AC33890')
+  input10 <- to_bits('880086C3E88112')
+  input11 <- to_bits('CE00C43D881120')
+  input12 <- to_bits('D8005AC2A8F0')
+  input13 <- to_bits('F600BC2D8F')
+  input14 <- to_bits('9C005AC2F8F0')
+  input15 <- to_bits('9C0141080250320F1802104A08')
+
+  skip('Part two not implemented yet')
+  expect_equal(packet_parse(input8, T), 1 + 2)
+  expect_equal(packet_parse(input9, T), 6 * 9)
+  expect_equal(packet_parse(input10, T), min(c(7, 8, 9)))
+  expect_equal(packet_parse(input11, T), max(c(7, 8, 9)))
+  expect_equal(packet_parse(input12, T), 5 < 15)
+  expect_equal(packet_parse(input13, T), 5 > 15)
+  expect_equal(packet_parse(input14, T), 5 == 15)
+  expect_equal(packet_parse(input15, T), 1 + 3 == 2 * 2)
 })
