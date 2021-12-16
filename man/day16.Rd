@@ -17,12 +17,16 @@ packet_versions(bits, depth = 0, rem_subs = Inf, eval = FALSE)
 
 packet_decode(bits, depth = 0, rem_subs = Inf)
 
-packet_parse(lst, eval = FALSE)
+packet_parse(tree, eval = FALSE)
 }
 \arguments{
 \item{x}{A hexadecimal string.}
 
 \item{bits}{A vector of bits.}
+
+\item{depth}{Nesting level of the sub-packet.}
+
+\item{rem_subs}{How many sub-packets are left (for length type ID 1).}
 
 \item{eval}{Logical. Evaluate the final expression?}
 

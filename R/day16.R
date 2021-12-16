@@ -136,6 +136,8 @@ to_bits <- function(x) {
 
 #' @rdname day16
 #' @param bits A vector of bits.
+#' @param depth Nesting level of the sub-packet.
+#' @param rem_subs How many sub-packets are left (for length type ID 1).
 #' @export
 packet_versions <- function(bits, depth = 0, rem_subs = Inf, eval = FALSE) {
   acc <- 0
@@ -232,10 +234,10 @@ combine_expr <- function(node, eval = FALSE) {
 #' @param tree A (deeply) nested list, as produced from `packet_decode`.
 #' @param eval Logical. Evaluate the final expression?
 #' @export
-packet_parse <- function(lst, eval = FALSE) {
-  if (!is.list(lst))
-    return(combine_expr(lst, eval))
-  expr <- packet_parse(unlist(lapply(lst, packet_parse, eval), use.names = F))
+packet_parse <- function(tree, eval = FALSE) {
+  if (!is.list(tree))
+    return(combine_expr(tree, eval))
+  expr <- packet_parse(unlist(lapply(tree, packet_parse, eval), use.names = F))
   if (!eval)
     return(expr)
   eval(parse(text = expr))
