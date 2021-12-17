@@ -238,7 +238,7 @@ packet_parse <- function(tree, eval = FALSE) {
   if (!is.list(tree))
     return(combine_expr(tree, eval))
   expr <- packet_parse(unlist(lapply(tree, packet_parse, eval), use.names = F))
-  if (!eval)
-    return(expr)
-  eval(parse(text = expr))
+  if (eval & is.character(expr))
+    return(eval(parse(text = expr)))
+  expr
 }
