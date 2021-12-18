@@ -201,8 +201,7 @@ read_sf <- function(input) {
     expr <- gsub('\\]', ')', gsub('\\[', 'list(', string))
     eval(parse(text = expr))
   })
-  if (length(out) == 1) return(unlist(out, FALSE))
-  out
+  if (length(out) == 1) return(unlist(out, FALSE)) else out
 }
 
 #' @rdname day18
@@ -220,12 +219,8 @@ sf_reduce <- function(lst) {
 }
 
 sf_reduce1 <- function(lst) {
-  if (max(depths(lst)) > 4) {
-    lst <- Recall((sf_explode(lst)))
-  }
-  if (any(unlist(lst) > 9)) {
-    lst <- Recall(sf_split(lst))
-  }
+  if (max(depths(lst)) > 4) lst <- Recall(sf_explode(lst))
+  if (any(unlist(lst) > 9)) lst <- Recall(sf_split(lst))
   lst
 }
 
@@ -233,41 +228,25 @@ sf_reduce1 <- function(lst) {
 #' @importFrom utils relist
 #' @export
 sf_explode <- function(lst) {
-  idx <- which(depths(lst) > 4)
-  if (!length(idx)) stop('Nothing to explode')
-  # Get the first two explode-able values.
-  left <- idx[1]
-  right <- idx[2]
-  # Add to the values either side.
-  val <- unlist(lst)
-  if (left > 1)
-    val[left - 1] <- val[left - 1] + val[left]
-  if (right < length(val))
-    val[right + 1] <- val[right] + val[right + 1]
-  # Replace explode-able element with NA.
-  val[idx[1:2]] <- NA
-  out <- relist(val, lst)
-  # Replace this NA list with a single 0.
-  replaceNA(out, 0)
+  i <- which(depths(lst) > 4)
+  L <- i[1]; R <- i[2]
+  x <- unlist(lst)
+  if (L > 1)
+    x[L - 1] <- x[L - 1] + x[L]
+  if (R < length(x))
+    x[R + 1] <- x[R] + x[R + 1]
+  x[c(L, R)] <- NA
+  replaceNA(relist(x, lst), 0)
 }
 
 #' @rdname day18
 #' @export
 sf_split <- function(lst) {
-  val <- unlist(lst)
-  idx <- which(val > 9)
-  if (!length(idx)) stop('Nothing to split')
-  # Replace the first value with NA.
-  idx <- idx[1]
-  lst <- relist(replace(val, idx, NA), lst)
-  # Split the leaf marked NA into two.
-  out <- replaceNA(lst, list(NA, NA))
-  # Replace the two NAs with the floor & ceiling.
-  ins <- c(floor(val[idx] / 2), ceiling(val[idx] / 2))
-  val <- unlist(out)
-  val[is.na(val)] <- ins
-  # Back to list structure.
-  relist(val, out)
+  x <- unlist(lst)
+  i <- which(x > 9)
+  lst <- relist(replace(x, i[1], NA), lst)
+  n <- x[i][1]
+  replaceNA(lst, list(floor(n / 2), ceiling(n / 2)))
 }
 
 depths <- function(lst, depth = 0) {
