@@ -97,6 +97,15 @@ get_solution(17)
 #> [1] 3767
 ```
 
+From here they start taking a while to run, so here are some cached
+results:
+
+``` r
+get_solution(18)
+#> [1] 4008
+#> [1] 4667
+```
+
 ## Attribution
 
 Puzzles and their descriptions are by Eric Wastl.
