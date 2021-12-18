@@ -242,11 +242,12 @@ sf_explode <- function(lst) {
 #' @rdname day18
 #' @export
 sf_split <- function(lst) {
-  x <- unlist(lst)
-  i <- which(x > 9)
-  lst <- relist(replace(x, i[1], NA), lst)
-  n <- x[i][1]
-  replaceNA(lst, list(floor(n / 2), ceiling(n / 2)))
+  done <- FALSE
+  rapply(lst, \(n) {
+    if (n <= 9 | done) return(n)
+    done <<- TRUE
+    list(floor(n / 2), ceiling(n / 2))
+  }, how = 'replace')
 }
 
 depths <- function(lst, depth = 0) {

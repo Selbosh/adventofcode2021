@@ -7,9 +7,9 @@ test_that("Day 18", {
   )
 
   # Split
-  expect_equal(sf_split(10), list(5, 5))
-  expect_equal(sf_split(11), list(5, 6))
-  expect_equal(sf_split(12), list(6, 6))
+  expect_equal(sf_split(list(10)), list(list(5, 5)))
+  expect_equal(sf_split(list(11)), list(list(5, 6)))
+  expect_equal(sf_split(list(12)), list(list(6, 6)))
 
   # Utility function for reading in example data
   read_ex <- function(x, reduce = TRUE) {
