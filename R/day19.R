@@ -363,12 +363,23 @@
 #' In total, there are 79 beacons.
 #'
 #' Assemble the full map of beacons. How many beacons are there?
+#'
+#' ## Part Two:
+#'
+#' Sometimes, it's a good idea to appreciate just how big the ocean is. Using the Manhattan distance, how far apart do the scanners get?
+#'
+#' In the above example, scanners 2 `(1105,-1205,1229)` and 3 `(-92,-2380,-20)` are the largest Manhattan distance apart. In total, they are `1197 + 1175 + 1249 = 3621` units apart.
+#'
+#' What is the largest Manhattan distance between any two scanners?
+#'
 #' @source <https://adventofcode.com/2021/day/19>
 #' @name day19
 NULL
 
 #' @rdname day19
 #' @param file A filename or text connection.
+#' @importFrom utils read.csv
+#' @importFrom stats na.omit
 #' @export
 read_scanners <- function(file) {
   input <- read.csv(file, header = FALSE, col.names = c('x', 'y', 'z'))
@@ -401,14 +412,11 @@ locate_scanners <- function(input) {
   beacons <- scanners[[1]][[1]]
   scanners <- scanners[-1]
   while (length(scanners)) {
-    message(length(scanners))
     for (scanner in scanners) {
       done <- FALSE
       for (orientation in scanner) {
-        dist <- dist2(orientation, beacons)
-        dtbl <- table(dist)
+        dtbl <- table(dist2(orientation, beacons))
         if (any(dtbl >= 12)) {
-          message('Woo!')
           done <- TRUE
           break
         }
@@ -416,8 +424,6 @@ locate_scanners <- function(input) {
       if (!done) next
       scanners <- setdiff(scanners, list(scanner))
       trans <- names(dtbl)[dtbl >= 12]
-      if (length(trans) > 1)
-        warning('Multiple possible translations')
       trans <- scan(textConnection(trans), quiet = TRUE)
       scanner_coords <- rbind(scanner_coords, trans)
       beacons <- unique(rbind(beacons, sweep(orientation, 2, trans, '+')))
@@ -425,5 +431,3 @@ locate_scanners <- function(input) {
   }
   list(beacons = beacons, scanners = scanner_coords)
 }
-
-
