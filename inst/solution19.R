@@ -1,0 +1,5 @@
+library(adventofcode2021)
+input <- read_scanners(input_file(19))
+result <- locate_scanners(input)
+nrow(result$beacon_locations)
+max(dist(result$scanners, 'manhattan'))
