@@ -142,12 +142,9 @@ binary_neighbours_to_int <- function(x, pad = 0) {
 #' @param n Number of iterations.
 #' @export
 enhance_image <- function(image, algorithm, n = 1) {
-  . <- 0
+  . <- algorithm[1]
   for (i in 1:n) {
-    if (i > 1) {
-      . <- algorithm[1]
-      if (i %% 2 == 1) . <- algorithm[512] # works for real data, but need to fix for example
-    }
+    if (algorithm[1]) . <- !.
     image <- b <- binary_neighbours_to_int(
       cbind(., ., rbind(., ., image, ., .), ., .), pad = .)
     image[] <- algorithm[b + 1]

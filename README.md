@@ -104,6 +104,12 @@ results:
 get_solution(18)
 #> [1] 4008
 #> [1] 4667
+get_solution(19)
+#> [1] 398
+#> [1] 10965
+get_solution(20)
+#> [1] 5680
+#> [1] 19766
 ```
 
 ## Attribution
