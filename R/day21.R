@@ -78,8 +78,29 @@ deterministic_dice <- function(player1, player2) {
   prod(nrolls, min(score1, score2))
 }
 
+# There are only 7 possible unique sums from 3 dice rolls.
+rolls <- expand.grid(r1 = 1:3, r2 = 1:3, r3 = 1:3)
+rolls <- sapply(split(rolls, rowSums(rolls)), nrow)
+rolls <- mapply(c, sum = as.numeric(names(rolls)), n = rolls, SIMPLIFY = F)
+
 #' @rdname day21
+#' @importFrom memoise memoise
 #' @export
 dirac_dice <- function(player1, player2) {
-
+  count_wins <- memoise::memoise(
+    function(player1, player2, score1, score2) {
+      Reduce(
+        \(wins, roll) {
+          player1 <- (player1 + roll['sum'] - 1) %% 10 + 1
+          score1 <- score1 + player1
+          if (score1 >= 21) {
+            return(wins + c(roll['n'], 0))
+          } else
+            wins + roll['n'] *
+            rev(count_wins(player2, player1, score2, score1))
+        },
+        rolls,
+        init = c(w1 = 0, w2 = 0))
+    })
+  max(count_wins(player1, player2, 0, 0))
 }

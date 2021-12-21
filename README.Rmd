@@ -75,6 +75,9 @@ get_solution(19)
 get_solution(20)
 #> [1] 5680
 #> [1] 19766
+get_solution(21)
+#> [1] 412344
+#> [1] "214924284932572"
 ```
 
 ## Attribution
