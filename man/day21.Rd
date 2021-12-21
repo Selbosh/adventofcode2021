@@ -3,12 +3,15 @@
 \name{day21}
 \alias{day21}
 \alias{deterministic_dice}
+\alias{dirac_dice}
 \title{Day 21: Dirac Dice}
 \source{
 \url{https://adventofcode.com/2021/day/21}
 }
 \usage{
-deterministic_dice(player1 = 4, player2 = 8)
+deterministic_dice(player1, player2)
+
+dirac_dice(player1, player2)
 }
 \arguments{
 \item{player1, player2}{Starting positions of the players.}
@@ -27,29 +30,29 @@ Since the first game is a practice game, the submarine opens a compartment label
 
 For example, given these starting positions:\preformatted{Player 1 starting position: 4
 Player 2 starting position: 8
+}
 
 This is how the game would go:
-}
 \itemize{
-\item Player 1 rolls 1+2+3 and moves to space 10 for a total score of 10.
-\item Player 2 rolls 4+5+6 and moves to space 3 for a total score of 3.
-\item Player 1 rolls 7+8+9 and moves to space 4 for a total score of 14.
-\item Player 2 rolls 10+11+12 and moves to space 6 for a total score of 9.
-\item Player 1 rolls 13+14+15 and moves to space 6 for a total score of 20.
-\item Player 2 rolls 16+17+18 and moves to space 7 for a total score of 16.
-\item Player 1 rolls 19+20+21 and moves to space 6 for a total score of 26.
-\item Player 2 rolls 22+23+24 and moves to space 6 for a total score of 22.
+\item Player 1 rolls \code{1+2+3} and moves to space 10 for a total score of 10.
+\item Player 2 rolls \code{4+5+6} and moves to space 3 for a total score of 3.
+\item Player 1 rolls \code{7+8+9} and moves to space 4 for a total score of 14.
+\item Player 2 rolls \code{10+11+12} and moves to space 6 for a total score of 9.
+\item Player 1 rolls \code{13+14+15} and moves to space 6 for a total score of 20.
+\item Player 2 rolls \code{16+17+18} and moves to space 7 for a total score of 16.
+\item Player 1 rolls \code{19+20+21} and moves to space 6 for a total score of 26.
+\item Player 2 rolls \code{22+23+24} and moves to space 6 for a total score of 22.
 }
 
 ...after many turns...
 \itemize{
-\item Player 2 rolls 82+83+84 and moves to space 6 for a total score of 742.
-\item Player 1 rolls 85+86+87 and moves to space 4 for a total score of 990.
-\item Player 2 rolls 88+89+90 and moves to space 3 for a total score of 745.
-\item Player 1 rolls 91+92+93 and moves to space 10 for a final score, 1000.
+\item Player 2 rolls \code{82+83+84} and moves to space 6 for a total score of 742.
+\item Player 1 rolls \code{85+86+87} and moves to space 4 for a total score of 990.
+\item Player 2 rolls \code{88+89+90} and moves to space 3 for a total score of 745.
+\item Player 1 rolls \code{91+92+93} and moves to space 10 for a final score, 1000.
 }
 
-Since player 1 has at least 1000 points, player 1 wins and the game ends. At this point, the losing player had 745 points and the die had been rolled a total of 993 times; 745 * 993 = 739785.
+Since player 1 has at least 1000 points, player 1 wins and the game ends. At this point, the losing player had 745 points and the die had been rolled a total of 993 times; \code{745 * 993 = 739785}.
 
 Play a practice game using the deterministic 100-sided die. The moment either player wins, what do you get if you multiply the score of the losing player by the number of times the die was rolled during the game?
 \subsection{Part Two:}{
