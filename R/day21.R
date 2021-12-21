@@ -58,9 +58,7 @@ NULL
 #' @param player1,player2 Starting positions of the players.
 #' @export
 deterministic_dice <- function(player1, player2) {
-  score1 <- 0
-  score2 <- 0
-  nrolls <- 0
+  score1 <- score2 <- nrolls <- 0
   dice <- 1:3
   repeat {
     player1 <- (player1 + sum(dice) - 1) %% 10 + 1
