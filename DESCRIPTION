@@ -1,6 +1,6 @@
 Package: adventofcode2021
 Title: Advent of Code 2021 Solutions in R
-Version: 0.21.0
+Version: 0.22.0
 Authors@R: c(
     person("David Antony", "Selby", , "david.selby@manchester.ac.uk",
            role = c("aut", "cre"),
@@ -21,4 +21,5 @@ Suggests:
 Config/testthat/edition: 3
 Imports: 
     memoise,
-    igraph
+    igraph,
+    R6
